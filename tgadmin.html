@@ -32,8 +32,8 @@
         <label>Password</label>
         <input id="loginPass" type="password" placeholder="password">
       </div>
-      <button onclick="handleLogin()" class="btn btn-primary w-full mt-2">Login</button>
-      <p id="loginError" class="text-red-400 text-xs hidden">Invalid credentials</p>
+      <button onclick="handleLogin()" class="btn btn-primary w-full mt-2" id="loginBtn">Login</button>
+      <p id="loginError" class="text-red-400 text-xs hidden mt-2">Invalid credentials</p>
     </div>
   </div>
 </div>
@@ -109,8 +109,8 @@
       </div>
     </div>
 
-    <button onclick="handleSave()" class="btn btn-primary w-full mt-5">Save Changes</button>
-    <p id="saveMsg" class="text-green-400 text-xs text-center mt-2 hidden">Saved successfully! Refresh landing page to see changes.</p>
+    <button onclick="handleSave()" class="btn-primary w-full mt-5" style="padding:0.5rem 1.5rem; border-radius:999px; font-weight:600; font-size:0.875rem; border:none; cursor:pointer; background:linear-gradient(145deg, rgb(147,51,234), rgb(88,28,135)); color:#fff;">Save Changes</button>
+    <p id="saveMsg" class="hidden text-xs text-center mt-2"></p>
   </div>
 </div>
 
@@ -194,29 +194,36 @@ function handleSave() {
   btn.textContent = 'Saving...';
   btn.disabled = true;
 
+  var msg = document.getElementById('saveMsg');
+  msg.textContent = 'Saving...';
+  msg.className = 'text-yellow-400 text-xs text-center mt-2';
+  msg.classList.remove('hidden');
+
   fetch('/api/content', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
   })
-  .then(function(r) { return r.json(); })
+  .then(function(r) {
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return r.json();
+  })
   .then(function(res) {
     if (res.success) {
-      var msg = document.getElementById('saveMsg');
       msg.textContent = 'Saved! All visitors will see the changes.';
-      msg.classList.remove('hidden');
-      setTimeout(function() { msg.classList.add('hidden'); }, 3000);
+      msg.className = 'text-green-400 text-xs text-center mt-2';
+    } else {
+      throw new Error('API error');
     }
   })
-  .catch(function() {
-    var msg = document.getElementById('saveMsg');
-    msg.textContent = 'Error saving — is API deployed?';
-    msg.classList.remove('hidden');
-    setTimeout(function() { msg.classList.add('hidden'); }, 3000);
+  .catch(function(err) {
+    msg.textContent = 'Failed: ' + err.message + '. Make sure API + Blob token are set.';
+    msg.className = 'text-red-400 text-xs text-center mt-2';
   })
   .finally(function() {
     btn.textContent = 'Save Changes';
     btn.disabled = false;
+    setTimeout(function() { msg.classList.add('hidden'); }, 5000);
   });
 }
 </script>
