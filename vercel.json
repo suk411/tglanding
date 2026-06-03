@@ -1,0 +1,11 @@
+{
+  "functions": {
+    "api/content.js": {
+      "memory": 128,
+      "maxDuration": 10
+    }
+  },
+  "rewrites": [
+    { "source": "/tgadmin", "destination": "/tgadmin.html" }
+  ]
+}

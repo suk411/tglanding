@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Sureshot Glassy Landing Page</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Roboto:wght@400;500&display=swap');
+    body { font-family: 'Roboto', sans-serif; }
+    .font-oswald { font-family: 'Oswald', sans-serif; }
+
+    .bg-aurora {
+      background: url('assets/download.jpg') center / cover no-repeat fixed;
+    }
+
+    .real-glass {
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(50px);
+      -webkit-backdrop-filter: blur(50px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 
+        0 8px 32px 0 rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+        inset 2px 0 0 rgba(255, 255, 255, 0.08),
+        inset -2px 0 0 rgba(0, 0, 0, 0.05);
+    }
+
+    .real-glass-inner {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 
+        0 4px 24px 0 rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    .glass-edge {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      border: 1px solid transparent;
+      background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 20%, transparent 80%, rgba(255,255,255,0.08) 100%) border-box;
+      -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    .text-purple-glow {
+      color: #e0b0ff;
+      text-shadow: 0 0 8px rgba(224, 176, 255, 0.6);
+    }
+
+    @keyframes purpleShine {
+      0% { left: -100%; }
+      50%, 100% { left: 200%; }
+    }
+  </style>
+</head>
+<body class="bg-aurora min-h-dvh flex items-center justify-center p-3 sm:p-4 md:p-6 text-white overflow-x-hidden">
+<main class="w-full max-w-md relative z-10">
+<div class="rounded-[2rem] p-4 sm:p-5 md:p-7 flex flex-col items-center relative overflow-hidden real-glass" data-purpose="main-glass-panel">
+<div class="glass-edge"></div>
+<div class="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-white/10 to-transparent pointer-events-none"></div>
+
+<!-- Header -->
+<header class="flex items-center gap-1.5 sm:gap-2 w-full mb-3 sm:mb-4 relative z-10" data-purpose="community-header">
+<div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-gradient-to-tr from-purple-400 to-blue-300 flex items-center justify-center shadow border border-white/40 shrink-0">
+<svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white fill-current" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.19-.08-.05-.19-.02-.27 0-.11.03-1.88 1.2-5.32 3.52-.5.35-.95.52-1.36.51-.45-.01-1.3-.25-1.93-.46-.78-.26-1.4-.39-1.35-.83.03-.23.34-.47.95-.73 3.73-1.62 6.21-2.69 7.45-3.21 3.54-1.47 4.28-1.72 4.76-1.73.1 0 .34.02.49.14.13.1.17.24.18.35-.01.07-.01.18-.03.32z"></path></svg>
+</div>
+<h1 class="font-oswald text-sm sm:text-base md:text-lg font-bold tracking-wide uppercase leading-tight">
+<span id="d-header1" class="text-white/90">Join the official</span>
+<span id="d-header2" class="text-purple-glow">Community</span>
+</h1>
+</header>
+
+<!-- Profile Card -->
+<section class="rounded-xl p-2 sm:p-2.5 w-full mb-3 sm:mb-4 flex items-center gap-2 relative z-10 real-glass-inner" data-purpose="profile-info-card">
+<div class="glass-edge"></div>
+<div class="w-10 h-10 sm:w-11 sm:h-11 rounded-full border-2 border-white/30 overflow-hidden shadow shrink-0">
+<img id="d-logo" alt="Sureshot Community Network" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2GIzve32E08EyhHzrnM_4uy3GMk49UUFZALS7QgBBL6BJ5rgDgL_jE1JGAkORJo25JUqUrSf-O9HBMfEk8M6MJpVgCP1jxQ2NW8mWqXmNsSGQJgV8ED9ssSQeO3ERJMKSEn6Lx-uI7jsXm04-t16dVpFJELoOd3GaphkyOGaXDcPh_nKsnS9ikaV9fGwbeNVxga4MuWlD_nOwlesNGQoqvUsDXaP5TfTL4M9LQMU5H_HT9rwtoaWkFl20RmIxpzm5ewr-md45pKq5"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-0.5">
+<h2 id="d-name" class="font-oswald text-xs sm:text-sm font-bold text-white tracking-wide truncate">SURESHOT BY PRINCE</h2>
+<svg class="w-3 h-3 sm:w-3.5 sm:h-3.5 text-blue-500 fill-current shrink-0" viewbox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path></svg>
+</div>
+<p id="d-members" class="text-[9px] sm:text-[10px] text-white/70 font-medium uppercase tracking-wider">18.5k Members | Active Community</p>
+</div>
+</section>
+
+<!-- Benefits List -->
+<section class="w-full mb-4 sm:mb-5 z-10" data-purpose="community-benefits">
+<ul id="d-benefits" class="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-1.5 text-xs sm:text-sm text-white/90">
+<li class="flex items-start gap-1.5"><span class="text-purple-400 mt-0.5 shrink-0">✓</span><span><span class="text-purple-300">Daily Market</span> Analysis &amp; Signals</span></li>
+<li class="flex items-start gap-1.5"><span class="text-purple-400 mt-0.5 shrink-0">✓</span><span><span class="text-purple-300">19%</span> Community Accuracy</span></li>
+<li class="flex items-start gap-1.5"><span class="text-purple-400 mt-0.5 shrink-0">✓</span><span><span class="text-purple-300">Daily Market</span> Analysis &amp; Signals</span></li>
+<li class="flex items-start gap-1.5"><span class="text-purple-400 mt-0.5 shrink-0">✓</span><span><span class="text-purple-300">Network</span> with Like-Minded Professionals</span></li>
+<li class="flex items-start gap-1.5"><span class="text-purple-400 mt-0.5 shrink-0">✓</span><span><span class="text-purple-300">Access</span> Exclusive AMAs &amp; Events</span></li>
+<li class="flex items-start gap-1.5"><span class="text-purple-400 mt-0.5 shrink-0">✓</span><span><span class="text-purple-300">Instant</span> Community Support</span></li>
+</ul>
+</section>
+
+<!-- CTA -->
+<section class="w-full text-center z-10" data-purpose="cta-section">
+<a id="d-url" href="https://t.me/your_channel" target="_blank" rel="noopener noreferrer" class="block w-full max-w-[280px] mx-auto">
+<button class="relative inline-flex items-center justify-center border-0 outline-none cursor-pointer overflow-hidden transition-transform active:scale-96 w-full mb-3 font-oswald uppercase tracking-wider" style="height:clamp(34px, 10vw, 42px); border-radius:clamp(17px, 5vw, 21px); font-size:clamp(12px, 3.8vw, 15px); font-weight:900; letter-spacing:clamp(0.8px, 0.35vw, 1.2px); background:linear-gradient(145deg, rgb(147, 51, 234) 0%, rgb(126, 34, 206) 40%, rgb(88, 28, 135) 100%); color:#fff; box-shadow:rgba(147, 51, 234, 0.5) 0px 4px 14px 0px, rgba(255, 255, 255, 0.3) 0px 1px 2px 0px inset, rgba(168, 85, 247, 0.3) 0px 0px 0px 1px; text-shadow:rgba(0, 0, 0, 0.3) 0px 0.5px 1.5px;">
+<div class="glass-edge" style="border-radius:clamp(17px, 5vw, 21px);"></div>
+<div style="position:absolute; top:0; left:8%; width:84%; height:50%; background:linear-gradient(rgba(255, 255, 255, 0.35), transparent); border-radius:clamp(17px, 5vw, 21px) clamp(17px, 5vw, 21px) 50% 50%; pointer-events:none;"></div>
+<span style="position:absolute; top:0; left:-100%; width:50%; height:100%; background:linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent); animation:purpleShine 2.5s ease-in-out infinite;"></span>
+<span id="d-btnText" class="relative z-10">Join Our Telegram Channel Now</span>
+</button>
+</a>
+<p id="d-subText" class="text-[10px] sm:text-xs text-white/80">Loved by thousands of members globally. Start your journey today.</p>
+<hr class="border-white/20 w-3/4 mx-auto my-4 sm:my-5"/>
+<h3 class="font-oswald text-purple-glow font-bold uppercase tracking-widest text-[10px] sm:text-xs mb-2">Learn More About Us</h3>
+<p id="d-testimonial" class="text-[10px] sm:text-xs text-white/70 italic leading-relaxed px-4">"I bless you our testimonial community, an amazing group. The atmosphere and bonds are forged for unforgettable experiences."</p>
+</section>
+
+<!-- Footer -->
+<footer class="w-full mt-4 sm:mt-5 pt-4 sm:pt-5 text-center text-[9px] sm:text-[10px] text-white/50 z-10 border-t border-white/10" data-purpose="page-footer">
+<p id="d-footer" class="mb-1">Open to all users with the Telegram app.</p>
+<p>© 2024 Sureshot by Prince Group</p>
+</footer>
+</div>
+</main>
+
+<script>
+// Load saved content from API
+fetch('/api/content')
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    if (!data || !data.name) return;
+
+    function setText(id, val) {
+      var el = document.getElementById(id);
+      if (el && val) el.textContent = val;
+    }
+
+    function setAttr(id, attr, val) {
+      var el = document.getElementById(id);
+      if (el && val) el.setAttribute(attr, val);
+    }
+
+    setAttr('d-logo', 'src', data.logo);
+    setText('d-name', data.name);
+    setAttr('d-url', 'href', data.url);
+    setText('d-header1', data.header1);
+    setText('d-header2', data.header2);
+    setText('d-members', data.members);
+    setText('d-btnText', data.btnText);
+    setText('d-subText', data.subText);
+    setText('d-testimonial', data.testimonial);
+    setText('d-footer', data.footer);
+
+    if (data.benefits) {
+      var ul = document.getElementById('d-benefits');
+      if (ul) {
+        var items = data.benefits.split('\n').filter(Boolean);
+        ul.innerHTML = '';
+        items.forEach(function(item) {
+          var li = document.createElement('li');
+          li.className = 'flex items-start gap-1.5';
+          li.innerHTML = '<span class="text-purple-400 mt-0.5 shrink-0">✓</span><span>' + item + '</span>';
+          ul.appendChild(li);
+        });
+      }
+    }
+  })
+  .catch(function() { /* use defaults */ });
+</script>
+</body>
+</html>

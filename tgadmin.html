@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Admin Panel - Sureshot</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { font-family: system-ui, sans-serif; }
+  .card { background: rgba(255,255,255,0.08); backdrop-filter: blur(30px); border: 1px solid rgba(255,255,255,0.15); }
+  input, textarea { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; border-radius: 0.5rem; padding: 0.5rem 0.75rem; width: 100%; font-size: 0.875rem; outline: none; }
+  input:focus, textarea:focus { border-color: rgb(147, 51, 234); }
+  label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: rgba(255,255,255,0.6); margin-bottom: 0.25rem; display: block; }
+  .btn { padding: 0.5rem 1.5rem; border-radius: 999px; font-weight: 600; font-size: 0.875rem; border: none; cursor: pointer; }
+  .btn-primary { background: linear-gradient(145deg, rgb(147,51,234), rgb(88,28,135)); color: #fff; }
+  .btn-primary:hover { opacity: 0.9; }
+</style>
+</head>
+<body class="min-h-dvh bg-[#0a0a1a] text-white flex items-center justify-center p-4">
+
+<!-- LOGIN -->
+<div id="loginScreen" class="w-full max-w-sm">
+  <div class="card rounded-2xl p-6 text-center">
+    <h1 class="font-bold text-xl mb-1">Admin Panel</h1>
+    <p class="text-sm text-white/50 mb-6">Enter credentials to manage content</p>
+    <div class="space-y-3">
+      <div>
+        <label>Username</label>
+        <input id="loginUser" type="text" placeholder="username">
+      </div>
+      <div>
+        <label>Password</label>
+        <input id="loginPass" type="password" placeholder="password">
+      </div>
+      <button onclick="handleLogin()" class="btn btn-primary w-full mt-2">Login</button>
+      <p id="loginError" class="text-red-400 text-xs hidden">Invalid credentials</p>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="adminPanel" class="w-full max-w-lg hidden">
+  <div class="card rounded-2xl p-5 sm:p-6">
+    <div class="flex items-center justify-between mb-5">
+      <h1 class="font-bold text-lg">Content Manager</h1>
+      <button onclick="handleLogout()" class="text-xs text-white/50 hover:text-white">Logout</button>
+    </div>
+
+    <div class="space-y-4 max-h-[70vh] overflow-y-auto pr-1">
+      <div>
+        <label>Channel Logo</label>
+        <p class="text-[10px] text-white/40 mb-1">Upload image (stored in browser) or enter path e.g. <code class="text-purple-300">assets/logo.png</code> for files placed in assets/</p>
+        <div class="flex gap-2 mb-2">
+          <label class="flex-1 cursor-pointer" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:0.5rem; padding:0.5rem 0.75rem; font-size:0.875rem; display:flex; align-items:center; gap:0.5rem;">
+            <span class="text-purple-300 font-medium text-xs">Choose File</span>
+            <input id="field-logo" type="file" accept="image/*" class="hidden" onchange="previewLogo(this)">
+            <span id="fileName" class="text-xs text-white/40">No file selected</span>
+          </label>
+        </div>
+        <input id="field-logo-url" type="text" placeholder="assets/logo.png (or leave empty if using upload)" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); color:#fff; border-radius:0.5rem; padding:0.5rem 0.75rem; width:100%; font-size:0.75rem; outline:none;">
+        <div id="logoPreview" class="mt-2 hidden flex items-center gap-2">
+          <img id="logoPreviewImg" class="w-10 h-10 rounded-full border-2 border-white/30 object-cover">
+          <span id="logoStatus" class="text-xs text-white/50">image ready</span>
+          <button onclick="clearLogo()" class="ml-auto text-xs text-red-400 hover:text-red-300">Remove</button>
+        </div>
+      </div>
+
+      <div>
+        <label>Channel Name</label>
+        <input id="field-name" type="text" placeholder="SURESHOT BY PRINCE">
+      </div>
+      <div>
+        <label>Telegram Button URL</label>
+        <input id="field-url" type="url" placeholder="https://t.me/your_channel">
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label>Header Left</label>
+          <input id="field-header1" type="text" placeholder="Join the official">
+        </div>
+        <div>
+          <label>Header Right</label>
+          <input id="field-header2" type="text" placeholder="Community">
+        </div>
+      </div>
+      <div>
+        <label>Member Count</label>
+        <input id="field-members" type="text" placeholder="18.5k Members | Active Community">
+      </div>
+      <div>
+        <label>Benefit items (one per line)</label>
+        <textarea id="field-benefits" rows="4" placeholder="Daily Market Analysis &amp; Signals&#10;19% Community Accuracy"></textarea>
+      </div>
+      <div>
+        <label>Button Text</label>
+        <input id="field-btnText" type="text" placeholder="Join Our Telegram Channel Now">
+      </div>
+      <div>
+        <label>Sub-text (below button)</label>
+        <input id="field-subText" type="text" placeholder="Loved by thousands of members globally. Start your journey today.">
+      </div>
+      <div>
+        <label>Testimonial Text</label>
+        <textarea id="field-testimonial" rows="2" placeholder='"I bless you..."'></textarea>
+      </div>
+      <div>
+        <label>Footer Text</label>
+        <input id="field-footer" type="text" placeholder="Open to all users with the Telegram app.">
+      </div>
+    </div>
+
+    <button onclick="handleSave()" class="btn btn-primary w-full mt-5">Save Changes</button>
+    <p id="saveMsg" class="text-green-400 text-xs text-center mt-2 hidden">Saved successfully! Refresh landing page to see changes.</p>
+  </div>
+</div>
+
+<script>
+const ADMIN_CRED = { user: 'tgadmin', pass: 'tgadmin' };
+
+function handleLogin() {
+  const u = document.getElementById('loginUser').value;
+  const p = document.getElementById('loginPass').value;
+  if (u === ADMIN_CRED.user && p === ADMIN_CRED.pass) {
+    document.getElementById('loginScreen').classList.add('hidden');
+    document.getElementById('adminPanel').classList.remove('hidden');
+    document.getElementById('loginError').classList.add('hidden');
+    loadFields();
+  } else {
+    document.getElementById('loginError').classList.remove('hidden');
+  }
+}
+
+function handleLogout() {
+  document.getElementById('adminPanel').classList.add('hidden');
+  document.getElementById('loginScreen').classList.remove('hidden');
+  document.getElementById('loginUser').value = '';
+  document.getElementById('loginPass').value = '';
+}
+
+const FIELDS = [
+  'name', 'url', 'header1', 'header2', 'members',
+  'benefits', 'btnText', 'subText', 'testimonial', 'footer'
+];
+
+function loadFields() {
+  fetch('/api/content')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (!data) return;
+      FIELDS.forEach(function(id) {
+        var el = document.getElementById('field-' + id);
+        if (data[id] !== undefined) el.value = data[id];
+      });
+      var logo = data.logo || '';
+      document.getElementById('field-logo-url').value = logo;
+      if (logo) showLogoPreview(logo);
+    })
+    .catch(function() {});
+}
+
+function previewLogo(input) {
+  const file = input.files[0];
+  if (!file) return;
+  document.getElementById('fileName').textContent = file.name;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    showLogoPreview(e.target.result);
+    document.getElementById('logoStatus').textContent = 'Uploaded from file (stored in browser)';
+    document.getElementById('field-logo-url').value = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function showLogoPreview(src) {
+  document.getElementById('logoPreviewImg').src = src;
+  document.getElementById('logoPreview').classList.remove('hidden');
+}
+
+function clearLogo() {
+  document.getElementById('logoPreview').classList.add('hidden');
+  document.getElementById('field-logo').value = '';
+  document.getElementById('field-logo-url').value = '';
+  document.getElementById('fileName').textContent = 'No file selected';
+}
+
+function handleSave() {
+  var data = {};
+  FIELDS.forEach(function(id) {
+    data[id] = document.getElementById('field-' + id).value;
+  });
+  data.logo = document.getElementById('field-logo-url').value || '';
+
+  var btn = document.querySelector('.btn-primary');
+  btn.textContent = 'Saving...';
+  btn.disabled = true;
+
+  fetch('/api/content', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(res) {
+    if (res.success) {
+      var msg = document.getElementById('saveMsg');
+      msg.textContent = 'Saved! All visitors will see the changes.';
+      msg.classList.remove('hidden');
+      setTimeout(function() { msg.classList.add('hidden'); }, 3000);
+    }
+  })
+  .catch(function() {
+    var msg = document.getElementById('saveMsg');
+    msg.textContent = 'Error saving — is API deployed?';
+    msg.classList.remove('hidden');
+    setTimeout(function() { msg.classList.add('hidden'); }, 3000);
+  })
+  .finally(function() {
+    btn.textContent = 'Save Changes';
+    btn.disabled = false;
+  });
+}
+</script>
+</body>
+</html>
